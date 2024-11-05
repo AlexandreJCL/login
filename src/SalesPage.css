@@ -1,0 +1,209 @@
+/* Contenedor principal */
+.sales-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Sección principal (tabla y calculadora) */
+.main-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* Tabla de productos */
+.product-table {
+    flex: 2; /* La tabla ocupa más espacio */
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.product-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th, .product-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.product-table th:first-child, .product-table td:first-child {
+    width: 40px;
+    text-align: center;
+}
+
+.product-table th {
+    background-color: #f4f4f4;
+}
+
+/* Calculadora */
+.num-pad {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+.input-display {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+    font-size: 16px;
+}
+
+.pad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 100%;
+}
+
+.pad button {
+    padding: 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* Estilo específico para cada tipo de botón */
+.pad .ce {
+    background-color: #007bff;
+    grid-column: span 2;
+}
+
+.pad .plus {
+    background-color: #ffa500;
+    grid-row: span 2;
+}
+
+.pad .enter {
+    background-color: #ff8c69;
+    grid-column: 4;
+    grid-row: 4 / 6;
+}
+
+.pad .zero {
+    background-color: #5bc0de;
+    grid-column: span 2;
+}
+
+.pad .dot {
+    background-color: #5bc0de;
+}
+
+.pad button:nth-child(3) {
+    background-color: #5bc0de;
+}
+
+.pad button:nth-child(7) {
+    background-color: #5bc0de;
+}
+
+.pad button:nth-child(n+4):nth-child(-n+15):not(.plus):not(.enter):not(.ce):not(.zero):not(.dot) {
+    background-color: #5bc0de;
+}
+
+/* Sección secundaria (categorías y visualización de productos) */
+.secondary-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Categorías */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.categories button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+
+/* Visualización de productos */
+.product-display {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.product-display button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Total */
+.total {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.total span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.total-input {
+    width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: right;
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .main-section {
+        flex-direction: column;
+    }
+
+    /* Ocultar la calculadora en dispositivos móviles */
+    .num-pad {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-display {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .pad button {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .categories button,
+    .product-display button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

@@ -1,0 +1,171 @@
+.product-table {
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .table-header h2 {
+    margin: 0;
+  }
+  
+  .table-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 1.2em;
+  }
+  
+  .add-new-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-new-button:hover {
+    background-color: #0056b3;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+  }
+  
+  .status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .status-online {
+    background-color: green;
+  }
+  
+  .status-offline {
+    background-color: gray;
+  }
+  
+  .status-error {
+    background-color: red;
+  }
+  
+  .status-running {
+    background-color: orange;
+  }
+  
+  .link-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font: inherit;
+  }
+  
+  .link-button:hover {
+    text-decoration: none;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .pagination-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .pagination-button.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .pagination-select {
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  
+  /* Responsive Styles for Card Layout on Small Screens */
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    thead {
+      display: none;
+    }
+  
+    tr {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      border-bottom: 1px solid #f1f1f1;
+      font-size: 14px;
+    }
+  
+    td:last-child {
+      border-bottom: none;
+    }
+  
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      color: #555;
+    }
+  
+    .status-indicator {
+      margin-right: 0;
+    }
+  }
+  
