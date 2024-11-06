@@ -1,3 +1,4 @@
+// Login.js
 import React from 'react';
 import './Login.css'; // Importa el archivo CSS
 import { useNavigate } from 'react-router-dom'; // Para la redirección
