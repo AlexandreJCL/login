@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
 import './SalesPage.css';
-// Importa tus iconos desde la librería de iconos que estás utilizando
-import { FaSearch, FaArrowLeft, FaArrowRight, FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaPrint } from 'react-icons/fa';
 
 const SalesPage = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [quantities, setQuantities] = useState(Array(10).fill(1)); // Estado para las cantidades de los productos
 
-  const handleButtonClick = (value) => {
-    if (value === 'CE') {
-      setInputValue(''); // Clear the input
-    } else if (value === 'ENTER') {
-      console.log('Entered value:', inputValue);
-    } else {
-      setInputValue((prev) => prev + value); // Append the value to the current input
-    }
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+    // Aquí podrías cargar productos según la categoría seleccionada
+  };
+
+  const handleQuantityChange = (index, action) => {
+    setQuantities((prevQuantities) => {
+      const newQuantities = [...prevQuantities];
+      if (action === 'increase') {
+        newQuantities[index] = newQuantities[index] + 1;
+      } else if (action === 'decrease' && newQuantities[index] > 1) {
+        newQuantities[index] = newQuantities[index] - 1;
+      }
+      return newQuantities;
+    });
   };
 
   return (
     <div className="sales-page">
-      {/* Product Table */}
+      {/* Tabla de productos */}
       <div className="product-table">
         <table>
           <thead>
             <tr>
-              <th><input type="checkbox" /></th>
+              <th> </th>
               <th>Artículo</th>
               <th>Precio</th>
               <th>Cantidad</th>
@@ -31,89 +38,36 @@ const SalesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {[...Array(5)].map((_, index) => (
+            {quantities.map((quantity, index) => (
               <tr key={index}>
                 <td><input type="checkbox" /></td>
                 <td>Producto {index + 1}</td>
                 <td>$10.00</td>
-                <td>2</td>
-                <td>$20.00</td>
+                <td className="quantity-cell">
+                  <button className="minus-btn" onClick={() => handleQuantityChange(index, 'decrease')}><FaMinus /></button>
+                  <span>{quantity}</span>
+                  <button className="plus-btn" onClick={() => handleQuantityChange(index, 'increase')}><FaPlus /></button>
+                </td>
+                <td>${(quantity * 10).toFixed(2)}</td> {/* Actualiza el subtotal según la cantidad */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Numeric Keypad */}
-      <div className="keypad-container">
-        <input type="text" className="input-display" value={inputValue} readOnly />
-        <div className="keypad">
-          <button onClick={() => handleButtonClick('CE')} className="key ce"><FaTimes /></button>
-          <button onClick={() => handleButtonClick('*')}><FaTimes /></button>
-          <button onClick={() => handleButtonClick('-')}><FaMinus /></button>
-          <button onClick={() => handleButtonClick('7')}>7</button>
-          <button onClick={() => handleButtonClick('8')}>8</button>
-          <button onClick={() => handleButtonClick('9')}>9</button>
-          <button onClick={() => handleButtonClick('+')} className="plus"><FaPlus /></button>
-          <button onClick={() => handleButtonClick('4')}>4</button>
-          <button onClick={() => handleButtonClick('5')}>5</button>
-          <button onClick={() => handleButtonClick('6')}>6</button>
-          <button onClick={() => handleButtonClick('1')}>1</button>
-          <button onClick={() => handleButtonClick('2')}>2</button>
-          <button onClick={() => handleButtonClick('3')}>3</button>
-          <button onClick={() => handleButtonClick('ENTER')} className="enter">ENTER</button>
-          <button onClick={() => handleButtonClick('0')} className="zero">0</button>
-          <button onClick={() => handleButtonClick('.')} className="dot">.</button>
-        </div>
-      </div>
-
-      {/* Categories and Search */}
-      <div className="categories-container">
-        <div className="categories">
-          <button>Otros</button>
-          <button>Refrescos</button>
-          <button>Enlatados</button>
-          <button>Básicos</button>
-        </div>
-        <div className="product-search">
-          <input type="text" placeholder="Buscar producto" />
-          <button><FaSearch /></button>
-        </div>
-      </div>
-
-      {/* Product Display */}
-      <div className="product-display">
-        <table>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Código de Barra</th>
-              <th>Precio</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Ejemplo 1</td>
-              <td>123456789</td>
-              <td>$15.00</td>
-            </tr>
-            <tr>
-              <td>Ejemplo 2</td>
-              <td>987654321</td>
-              <td>$20.00</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="arrows">
-          <button><FaArrowLeft /></button>
-          <button><FaArrowRight /></button>
-        </div>
-      </div>
-
-      {/* Total Section */}
-      <div className="total-section">
-        <span>Total:</span>
-        <input type="text" className="total-input" readOnly />
+      {/* Sección de selección de categoría y botón de imprimir */}
+      <div className="controls-container">
+        <select className="category-select" value={selectedCategory} onChange={handleCategoryChange}>
+          <option value="">Seleccionar categoría</option>
+          <option value="cosmeticos">Cosméticos</option>
+          <option value="bebidas">Bebidas</option>
+          <option value="alimentos">Alimentos</option>
+          <option value="ropa">Ropa</option>
+        </select>
+        <button className="cancel-btn">Cancelar</button>
+        <button className="print-btn"><FaPrint /> Imprimir</button>
+        <span className="total-text">Total:</span>
+        <input type="text" className="total-input" readOnly value={`$${(quantities.reduce((acc, qty) => acc + qty, 0) * 10).toFixed(2)}`} />
       </div>
     </div>
   );
