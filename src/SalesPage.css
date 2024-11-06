@@ -1,209 +1,256 @@
-/* Contenedor principal */
-.sales-container {
-    display: flex;
-    flex-direction: column;
+/* Contenedor general */
+.sales-page {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
     gap: 20px;
     padding: 20px;
-}
-
-/* Sección principal (tabla y calculadora) */
-.main-section {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-/* Tabla de productos */
-.product-table {
-    flex: 2; /* La tabla ocupa más espacio */
-    border: 2px dashed #ddd;
-    border-radius: 10px;
-    overflow: auto;
-}
-
-.product-table table {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Tabla de productos */
+  .product-table {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    max-width: 100%;
+    overflow-y: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .product-table table {
     width: 100%;
     border-collapse: collapse;
-}
-
-.product-table th, .product-table td {
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-.product-table th:first-child, .product-table td:first-child {
-    width: 40px;
+  }
+  
+  .product-table th, .product-table td {
+    padding: 16px;
     text-align: center;
-}
-
-.product-table th {
-    background-color: #f4f4f4;
-}
-
-/* Calculadora */
-.num-pad {
-    flex: 1;
+    font-size: 18px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-table th {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  /* Teclado numérico estilo calculadora */
+  .keypad-container {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  
+  .input-display {
     width: 100%;
     max-width: 300px;
-}
-
-.input-display {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    height: 60px;
+    font-size: 24px;
     text-align: right;
-    font-size: 16px;
-}
-
-.pad {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    background-color: #eaeaea;
+  }
+  
+  .keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    width: 100%;
-}
-
-.pad button {
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 300px;
+  }
+  
+  /* Estilos para los botones */
+  .key {
+    font-size: 20px;
     padding: 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    color: #fff;
-}
-
-/* Estilo específico para cada tipo de botón */
-.pad .ce {
-    background-color: #007bff;
-    grid-column: span 2;
-}
-
-.pad .plus {
-    background-color: #ffa500;
-    grid-row: span 2;
-}
-
-.pad .enter {
-    background-color: #ff8c69;
-    grid-column: 4;
-    grid-row: 4 / 6;
-}
-
-.pad .zero {
-    background-color: #5bc0de;
-    grid-column: span 2;
-}
-
-.pad .dot {
-    background-color: #5bc0de;
-}
-
-.pad button:nth-child(3) {
-    background-color: #5bc0de;
-}
-
-.pad button:nth-child(7) {
-    background-color: #5bc0de;
-}
-
-.pad button:nth-child(n+4):nth-child(-n+15):not(.plus):not(.enter):not(.ce):not(.zero):not(.dot) {
-    background-color: #5bc0de;
-}
-
-/* Sección secundaria (categorías y visualización de productos) */
-.secondary-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Categorías */
-.categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.categories button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    flex: 1;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    color: white;
     text-align: center;
-}
-
-/* Visualización de productos */
-.product-display {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-.product-display button {
-    padding: 10px;
-    font-size: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Colores específicos de los botones */
+  .ce {
     background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Total */
-.total {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
+    grid-column: span 2;
+  }
+  
+  .minus {
+    background-color: #007bff;
+  }
+  
+  .plus {
+    background-color: #f39c12;
+    grid-row: span 2;
+  }
+  
+  .enter {
+    background-color: #f39c12;
+    grid-row: span 2;
+  }
+  
+  .num {
+    background-color: #004080;
+  }
+  
+  .zero {
+    grid-column: span 2;
+  }
+  
+  .key:hover {
+    opacity: 0.9;
+  }
+  
+  /* Ocultar el teclado numérico en dispositivos móviles */
+  @media (max-width: 768px) {
+    .keypad-container {
+      display: none;
+    }
+  }
+  
+  /* Contenedor de categorías, total y búsqueda */
+  .categories-total-search {
+    grid-column: 1 / 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-}
-
-.total span {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.total-input {
+    gap: 20px;
+    margin-top: 10px;
+  }
+  
+  /* Botones de categorías */
+  .categories-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .categories button {
+    padding: 12px 18px;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .categories button:hover {
+    background-color: #732d91;
+  }
+  
+  /* Sección Total */
+  .total-section {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin-left: 20px;
+  }
+  
+  .total-section span {
+    margin-right: 10px;
+  }
+  
+  .total-input {
     width: 100px;
-    padding: 5px;
-    font-size: 16px;
     text-align: right;
-}
-
-/* Estilos responsivos para pantallas pequeñas */
-@media (max-width: 768px) {
-    .main-section {
-        flex-direction: column;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sección de búsqueda de productos */
+  .product-search {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+  }
+  
+  .product-search input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    width: 150px;
+  }
+  
+  .product-search button {
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  /* Responsivo para móviles en cascada */
+  @media (max-width: 768px) {
+    .categories-total-search {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
     }
-
-    /* Ocultar la calculadora en dispositivos móviles */
-    .num-pad {
-        display: none;
+  
+    .categories-container,
+    .total-section,
+    .product-search {
+      width: 100%;
     }
-}
-
-@media (max-width: 480px) {
-    .input-display {
-        font-size: 14px;
-        padding: 8px;
+  
+    .product-search {
+      margin-left: 0;
     }
-
-    .pad button {
-        padding: 15px;
-        font-size: 16px;
-    }
-
-    .categories button,
-    .product-display button {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
+  }
+  
+  /* Tabla de visualización de productos */
+  .product-display {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+  }
+  
+  .product-display table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .product-display th, .product-display td {
+    padding: 16px;
+    text-align: center;
+    font-size: 18px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-display th {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  .arrows button {
+    font-size: 24px;
+    padding: 12px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    margin: 0 5px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './SalesPage.css';
+// Importa tus iconos desde la librería de iconos que estás utilizando
+import { FaSearch, FaArrowLeft, FaArrowRight, FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
 
 const SalesPage = () => {
   const [inputValue, setInputValue] = useState('');
@@ -8,7 +10,6 @@ const SalesPage = () => {
     if (value === 'CE') {
       setInputValue(''); // Clear the input
     } else if (value === 'ENTER') {
-      // Handle enter logic here (e.g., submit the value or perform an action)
       console.log('Entered value:', inputValue);
     } else {
       setInputValue((prev) => prev + value); // Append the value to the current input
@@ -16,8 +17,8 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="sales-container">
-      {/* Tabla de productos con checkboxes */}
+    <div className="sales-page">
+      {/* Product Table */}
       <div className="product-table">
         <table>
           <thead>
@@ -30,35 +31,30 @@ const SalesPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>Producto A</td>
-              <td>$10.00</td>
-              <td>2</td>
-              <td>$20.00</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>Producto B</td>
-              <td>$15.00</td>
-              <td>1</td>
-              <td>$15.00</td>
-            </tr>
+            {[...Array(5)].map((_, index) => (
+              <tr key={index}>
+                <td><input type="checkbox" /></td>
+                <td>Producto {index + 1}</td>
+                <td>$10.00</td>
+                <td>2</td>
+                <td>$20.00</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* Teclado numérico */}
-      <div className="num-pad">
+      {/* Numeric Keypad */}
+      <div className="keypad-container">
         <input type="text" className="input-display" value={inputValue} readOnly />
-        <div className="pad">
-          <button onClick={() => handleButtonClick('CE')} className="ce">CE</button>
-          <button onClick={() => handleButtonClick('x')}>*</button>
-          <button onClick={() => handleButtonClick('-')}>-</button>
+        <div className="keypad">
+          <button onClick={() => handleButtonClick('CE')} className="key ce"><FaTimes /></button>
+          <button onClick={() => handleButtonClick('*')}><FaTimes /></button>
+          <button onClick={() => handleButtonClick('-')}><FaMinus /></button>
           <button onClick={() => handleButtonClick('7')}>7</button>
           <button onClick={() => handleButtonClick('8')}>8</button>
           <button onClick={() => handleButtonClick('9')}>9</button>
-          <button onClick={() => handleButtonClick('+')} className="plus">+</button>
+          <button onClick={() => handleButtonClick('+')} className="plus"><FaPlus /></button>
           <button onClick={() => handleButtonClick('4')}>4</button>
           <button onClick={() => handleButtonClick('5')}>5</button>
           <button onClick={() => handleButtonClick('6')}>6</button>
@@ -71,21 +67,51 @@ const SalesPage = () => {
         </div>
       </div>
 
-      {/* Categorías de productos */}
-      <div className="categories">
-        <button>Otros</button>
-        <button>Refrescos</button>
-        <button>Enlatados</button>
-        <button>Básicos</button>
+      {/* Categories and Search */}
+      <div className="categories-container">
+        <div className="categories">
+          <button>Otros</button>
+          <button>Refrescos</button>
+          <button>Enlatados</button>
+          <button>Básicos</button>
+        </div>
+        <div className="product-search">
+          <input type="text" placeholder="Buscar producto" />
+          <button><FaSearch /></button>
+        </div>
       </div>
 
-      {/* Visualización de productos */}
+      {/* Product Display */}
       <div className="product-display">
-        <button>Avon</button>
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Código de Barra</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ejemplo 1</td>
+              <td>123456789</td>
+              <td>$15.00</td>
+            </tr>
+            <tr>
+              <td>Ejemplo 2</td>
+              <td>987654321</td>
+              <td>$20.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="arrows">
+          <button><FaArrowLeft /></button>
+          <button><FaArrowRight /></button>
+        </div>
       </div>
 
-      {/* Total */}
-      <div className="total">
+      {/* Total Section */}
+      <div className="total-section">
         <span>Total:</span>
         <input type="text" className="total-input" readOnly />
       </div>

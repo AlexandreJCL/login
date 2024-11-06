@@ -1,167 +1,162 @@
 /* Contenedor principal */
 .container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
+  position: relative;
 }
 
-/* Estilos de la barra lateral */
+/* Botón de menú para dispositivos móviles */
+.menu-toggle {
+  display: none; /* Oculto en pantallas grandes */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Barra lateral */
 .sidebar {
-    width: 250px;
-    background-color: #ffffff;
-    border-right: 1px solid rgb(145, 145, 145);
-    padding: 20px;
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid rgb(145, 145, 145);
+  color: #000000;
+  padding-top: 60px;
+  box-sizing: border-box;
+  z-index: 999;
+  transform: translateX(0); /* Menú visible en escritorio */
+  transition: transform 0.3s ease;
 }
 
+/* Mostrar el menú en pantallas móviles cuando está abierto */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.main-content {
+  flex-grow: 1;
+  margin-left: 250px; /* Espacio para el menú */
+  width: calc(100% - 250px);
+  padding: 20px;
+  background-color: #ffffff;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Estilo del logo */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .logo img {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
-.logo h1 {
-    font-size: 18px;
-    font-weight: bold;
+/* Barra de navegación sin triángulos ni símbolos adicionales */
+.sidebar-nav summary {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
 }
 
-/* Estilos para la barra de navegación */
-.sidebar-nav h2 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #d4d4d4;
+.sidebar-nav summary::-webkit-details-marker,
+.sidebar-nav summary::marker {
+  display: none;
 }
 
-.sidebar-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar-nav ul li {
-    margin-bottom: 10px;
-}
-
-/* Estilos para los botones de navegación */
+/* Botones de navegación */
 .nav-button {
-    background-color: #ffffff; /* Color de fondo */
-    color: rgb(0, 0, 0); /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 8px 10px; /* Espaciado interno más reducido */
-    font-size: 14px; /* Tamaño de fuente más pequeño */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.2s ease, transform 0.2s; /* Transición suave */
-    display: flex; /* Para alinear iconos y texto */
-    align-items: center; /* Centrar verticalmente */
+  background-color: #ffffff;
+  color: #333;
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .nav-button:hover {
-    background-color: #ffffff; /* Color al pasar el mouse */
-    transform: scale(1.02); /* Efecto de aumento más sutil al pasar el mouse */
+  background-color: #f3f3f3;
 }
 
 .nav-button svg {
-    width: 16px; /* Ajustar el tamaño del icono */
-    height: 16px;
-    margin-right: 8px; /* Espaciado entre el icono y el texto */
-}
-
-/* Estilos para el contenido principal */
-.main-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
 }
 
 /* Encabezado */
 .header {
-    display: flex;
-    justify-content: space-between; /* Mantiene los iconos a la derecha */
-    align-items: center;
-    padding: 20px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ffffff;
+  display: flex;
+  justify-content: space-between; /* Mantiene los iconos a la derecha */
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ffffff;
 }
 
-/* Alineación del título */
 .header-info {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-left: 20px; /* Ajusta el margen izquierdo para alinear con el contenido */
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-left: 20px;
 }
 
 .main-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #000; /* Asegúrate de que el título sea visible */
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
 }
 
-/* Iconos del encabezado */
 .header-icons {
-    display: flex;
-    gap: 20px;
-    font-size: 20px;
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
 }
 
-/* Contenido principal */
-.content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.content p {
-    font-size: 16px;
-    color: #888;
-}
-
-.loading-box {
-    flex-grow: 1;
-    background-color: #ffffff;
-    border: 2px dashed #ddd;
-    border-radius: 10px;
-    padding: 20px; /* Añade padding para el contenido interno */
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+  .container {
+      flex-direction: column;
+  }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #ffffff;
-    }
+  .sidebar {
+      transform: translateX(-100%); /* Ocultar el menú en móviles */
+  }
 
-    .main-content {
-        padding: 20px;
-    }
+  .sidebar.open {
+      transform: translateX(0); /* Mostrar el menú en móviles */
+  }
 
-    .header {
-        padding: 10px;
-    }
+  .menu-toggle {
+      display: block; /* Mostrar botón de menú en móviles */
+  }
 
-    .content {
-        padding: 20px;
-    }
+  .main-content {
+      margin-left: 0; /* Sin desplazamiento en móvil */
+      width: 100%;
+  }
 }
-
-@media (max-width: 480px) {
-    .header-info {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
