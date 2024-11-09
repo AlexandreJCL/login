@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import './SalesPage.css';
-import { FaPlus, FaMinus, FaPrint } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 
 const SalesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [quantities, setQuantities] = useState(Array(10).fill(1)); // Estado para las cantidades de los productos
+  const [quantities, setQuantities] = useState(Array(10).fill(1));
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  // Productos organizados por categoría
+  const productCategories = {
+    cosmeticos: ['Avon', 'Loreal', 'Nivea', 'Maybelline'],
+    bebidas: ['CocaCola', 'Pepsi', 'Sprite', 'Fanta'],
+    alimentos: ['Lays', 'Doritos', 'Cheetos', 'Ruffles'],
+    ropa: ['Camiseta', 'Pantalón', 'Sudadera', 'Zapatos']
+  };
 
   const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-    // Aquí podrías cargar productos según la categoría seleccionada
+    const category = event.target.value;
+    setSelectedCategory(category);
+    setFilteredProducts(productCategories[category] || []);
   };
 
   const handleQuantityChange = (index, action) => {
     setQuantities((prevQuantities) => {
       const newQuantities = [...prevQuantities];
       if (action === 'increase') {
-        newQuantities[index] = newQuantities[index] + 1;
+        newQuantities[index] += 1;
       } else if (action === 'decrease' && newQuantities[index] > 1) {
-        newQuantities[index] = newQuantities[index] - 1;
+        newQuantities[index] -= 1;
       }
       return newQuantities;
     });
@@ -44,18 +54,18 @@ const SalesPage = () => {
                 <td>Producto {index + 1}</td>
                 <td>$10.00</td>
                 <td className="quantity-cell">
-                  <button className="minus-btn" onClick={() => handleQuantityChange(index, 'decrease')}><FaMinus /></button>
+                  <button onClick={() => handleQuantityChange(index, 'decrease')}><FaMinus /></button>
                   <span>{quantity}</span>
-                  <button className="plus-btn" onClick={() => handleQuantityChange(index, 'increase')}><FaPlus /></button>
+                  <button onClick={() => handleQuantityChange(index, 'increase')}><FaPlus /></button>
                 </td>
-                <td>${(quantity * 10).toFixed(2)}</td> {/* Actualiza el subtotal según la cantidad */}
+                <td>${(quantity * 10).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Sección de selección de categoría y botón de imprimir */}
+      {/* Sección de controles y total */}
       <div className="controls-container">
         <select className="category-select" value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">Seleccionar categoría</option>
@@ -64,10 +74,19 @@ const SalesPage = () => {
           <option value="alimentos">Alimentos</option>
           <option value="ropa">Ropa</option>
         </select>
-        <button className="cancel-btn">Cancelar</button>
-        <button className="print-btn"><FaPrint /> Imprimir</button>
-        <span className="total-text">Total:</span>
-        <input type="text" className="total-input" readOnly value={`$${(quantities.reduce((acc, qty) => acc + qty, 0) * 10).toFixed(2)}`} />
+        <button className="cancel-btn"><FaTrash /> Borrar</button>
+        <button className="confirm-btn">Confirmar</button>
+        <div className="total-container">
+          <span className="total-text">Total:</span>
+          <input type="text" className="total-input" readOnly value={`$${(quantities.reduce((acc, qty) => acc + qty, 0) * 10).toFixed(2)}`} />
+        </div>
+      </div>
+
+      {/* Sección de productos */}
+      <div className="products-container">
+        {filteredProducts.map((product, index) => (
+          <button key={index} className="product-button">{product}</button>
+        ))}
       </div>
     </div>
   );

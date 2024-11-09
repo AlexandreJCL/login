@@ -21,7 +21,7 @@ const Login = () => {
             alt="Logo" 
             className="login-logo" 
           />
-          <h1>Bienvenido a su Sistema de Inventario</h1>
+          <h1>Bienvenido </h1>
           <p>Ingresa tu Usuario y Contraseña para continuar</p>
         </div>
         <form className="login-form" onSubmit={handleLogin}>

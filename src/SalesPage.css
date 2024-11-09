@@ -5,17 +5,19 @@
   align-items: center;
   gap: 20px;
   padding: 20px;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
+  background-color: #f0f8ff;
 }
 
-/* Tabla de productos */
+/* Tabla de productos con scroll */
 .product-table {
   width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 300px; /* Altura máxima de la tabla */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  border: 1px solid #2c0038;
   border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-table table {
@@ -31,61 +33,31 @@
 }
 
 .product-table th {
-  background-color: #2c3e50;
+  background-color: #2c0038; /* Color de encabezado */
   color: white;
 }
 
-/* Botones de cantidad transparentes */
+/* Botones de cantidad */
 .quantity-cell button {
-  background: transparent;
+  background-color: #d9a0e1;
   border: none;
-  font-size: 14px; /* Botones más pequeños */
+  font-size: 14px;
   cursor: pointer;
-  color: #333;
-  padding: 3px 6px; /* Reduce el padding */
-  width: 24px; /* Define un tamaño fijo para los botones */
-  height: 24px; /* Define un tamaño fijo para los botones */
+  color: white;
+  padding: 3px 6px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Efecto hover para los botones */
 .quantity-cell button:hover {
-  color: #007bff;
-  opacity: 0.7; /* Aplica un efecto de opacidad cuando el usuario pasa el mouse */
+  background-color: #8e44ad; /* Color al pasar el cursor */
 }
 
-/* Estilo opcional para los íconos */
-.quantity-cell .plus-btn, 
-.quantity-cell .minus-btn {
-  font-size: 1.2rem; /* Ajusta el tamaño de los íconos */
-}
-
-/* Contenedor de Total */
-.total-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px; /* Espacio debajo del total */
-}
-
-.total-text {
-  font-size: 16px;
-}
-
-.total-input {
-  width: 100px;
-  text-align: right;
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background-color: #f5f5f5;
-  color: #333;
-}
-
-/* Controles (menú desplegable y botones) */
+/* Controles */
 .controls-container {
   display: flex;
   align-items: center;
@@ -101,10 +73,10 @@
   background-color: #f5f5f5;
   color: #333;
   cursor: pointer;
-  flex: 1; /* Para ocupar el ancho necesario */
+  flex: 1;
 }
 
-.cancel-btn, .print-btn {
+.cancel-btn {
   background-color: #e74c3c;
   color: white;
   padding: 10px 20px;
@@ -114,37 +86,95 @@
   font-size: 16px;
 }
 
-.print-btn {
+.confirm-btn {
   background-color: #27ae60;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-/* Media query para dispositivos móviles */
+/* Contenedor de total */
+.total-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.total-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.total-input {
+  width: 120px;
+  text-align: right;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Contenedor de productos */
+.products-container {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #2c0038;
+  border-radius: 8px;
+  background-color: #eaeaea;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+/* Botón de producto */
+.product-button {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-button:hover {
+  background-color: #555;
+  color: #d9a0e1;
+}
+
+/* Responsividad para dispositivos móviles */
 @media (max-width: 600px) {
-  /* Total arriba del selector de categorías */
-  .total-container {
-    width: 100%;
-    margin-bottom: 10px;
-    order: -1; /* Cambia el orden para que el total esté antes */
+  .controls-container {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .controls-container {
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
+  .cancel-btn, .confirm-btn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .total-container {
     justify-content: space-between;
     width: 100%;
   }
 
-  .category-select {
-    flex: 2;
+  .total-input {
+    width: 100px;
   }
 
-  .cancel-btn, .print-btn {
-    flex: 1;
-    padding: 10px;
+  /* Ajuste para la tabla en pantallas pequeñas */
+  .product-table th, .product-table td {
     font-size: 14px;
+    padding: 8px;
   }
 }

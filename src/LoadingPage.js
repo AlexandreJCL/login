@@ -2,24 +2,21 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faSignOutAlt, faDollarSign, faChartLine, faShoppingCart, faUsers, faBox, faWarehouse, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faSignOutAlt, faChartLine, faWarehouse, faUsers, faBell, faFileAlt, faBox } from '@fortawesome/free-solid-svg-icons';
 import './LoadingPage.css';
+import DateRangePicker from './DateRangePicker';
 
-const ProductTable = lazy(() => import('./ProductTable'));
+const InventoryTable = lazy(() => import('./InventoryTable'));
+const ProductTable = lazy(() => import('./ProductTable')); // Importar el componente de productos
+const ProvidersTable = lazy(() => import('./ProvidersTable')); // Importar el componente de proveedores
 const SalesPage = lazy(() => import('./SalesPage'));
 const ClientesTable = lazy(() => import('./ClientesTable'));
 
 const LoadingPage = () => {
   const navigate = useNavigate();
-  const [mainContent, setMainContent] = useState(<p>Bienvenido a la página principal</p>);
+  const [mainContent, setMainContent] = useState(<p>Bienvenido</p>);
   const [mainTitle, setMainTitle] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleNavigation = (content, title) => {
-    setMainContent(content);
-    setMainTitle(title);
-    setMenuOpen(false); // Cierra el menú al navegar en móviles
-  };
 
   const handleLogout = () => {
     navigate('/'); // Redirige a la ruta de Login
@@ -29,9 +26,19 @@ const LoadingPage = () => {
     setMenuOpen(!menuOpen); // Alterna la visibilidad de la barra lateral en móviles
   };
 
+  const openDateRangePicker = (reportTitle) => {
+    setMainContent(<DateRangePicker reportTitle={reportTitle} onClose={() => setMainContent(<p>Bienvenido</p>)} />);
+    setMainTitle(reportTitle);
+  };
+
+  const handleNavigation = (content, title) => {
+    setMainContent(content);
+    setMainTitle(title);
+    setMenuOpen(false); // Cierra el menú al navegar en móviles
+  };
+
   return (
     <div className="container">
-      {/* Botón para dispositivos móviles */}
       <button className="menu-toggle" onClick={toggleMenu}>
         <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
       </button>
@@ -42,28 +49,35 @@ const LoadingPage = () => {
           <h1>SITE Control</h1>
         </div>
         <nav className="sidebar-nav">
+          {/* Sección Administrador */}
           <details open>
             <summary>Administrador</summary>
             <ul>
               <li>
-                <button className="nav-button" onClick={() => handleNavigation(<p>Ganancias</p>, 'Ganancias')}>
-                  <FontAwesomeIcon icon={faDollarSign} /> Ganancias
+                <button className="nav-button" onClick={() => openDateRangePicker("Reporte general de ventas")}>
+                  <FontAwesomeIcon icon={faFileAlt} /> Reporte general de ventas
                 </button>
               </li>
               <li>
-                <button className="nav-button" onClick={() => handleNavigation(<p>Reporte de ventas</p>, 'Reporte de ventas')}>
-                  <FontAwesomeIcon icon={faChartLine} /> Reporte de ventas
+                <button className="nav-button" onClick={() => openDateRangePicker("Reporte de artículos vendidos")}>
+                  <FontAwesomeIcon icon={faFileAlt} /> Reporte de artículos vendidos
+                </button>
+              </li>
+              <li>
+                <button className="nav-button" onClick={() => openDateRangePicker("Reporte de movimientos de inventario")}>
+                  <FontAwesomeIcon icon={faFileAlt} /> Reporte de movimientos de inventario
                 </button>
               </li>
             </ul>
           </details>
 
+          {/* Sección Ventas */}
           <details>
             <summary>Ventas</summary>
             <ul>
               <li>
-                <button className="nav-button" onClick={() => handleNavigation(<ProductTable />, 'Ver productos')}>
-                  <FontAwesomeIcon icon={faShoppingCart} /> Ver productos
+                <button className="nav-button" onClick={() => handleNavigation(<InventoryTable />, 'Ver inventario')}>
+                  <FontAwesomeIcon icon={faWarehouse} /> Ver inventario
                 </button>
               </li>
               <li>
@@ -79,6 +93,7 @@ const LoadingPage = () => {
             </ul>
           </details>
 
+          {/* Sección Almacén */}
           <details>
             <summary>Almacén</summary>
             <ul>
@@ -88,7 +103,7 @@ const LoadingPage = () => {
                 </button>
               </li>
               <li>
-                <button className="nav-button" onClick={() => handleNavigation(<p>Proveedores</p>, 'Proveedores')}>
+                <button className="nav-button" onClick={() => handleNavigation(<ProvidersTable />, 'Proveedores')}>
                   <FontAwesomeIcon icon={faWarehouse} /> Proveedores
                 </button>
               </li>
